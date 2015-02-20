@@ -21,5 +21,29 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>net.sf.supercsv</groupId>
+      <artifactId>super-csv-dozer</artifactId>
+    </dependency>
   </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.3.2</version>
+      </dependency>
+      
+      <dependency>
+          <groupId>net.sf.supercsv</groupId>
+          <artifactId>super-csv-dozer</artifactId>
+          <version>2.2.1</version>
+      </dependency>     
+    </dependencies>
+  </dependencyManagement>
 </project>
