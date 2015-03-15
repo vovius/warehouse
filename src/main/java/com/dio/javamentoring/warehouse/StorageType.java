@@ -11,4 +11,5 @@ public enum StorageType {
 		String ext = getExt();
 		return new StringBuilder().append(fileName).append('.').append(ext).toString();
 	}
+	
 }

@@ -3,6 +3,7 @@ package com.dio.javamentoring.warehouse;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 
 public class TVStorageFactoryImpl implements TVStorageFactory {
 	
@@ -60,15 +61,29 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 		return true;
 	}
 	
-	
-	
-	public static void main(String args[]) throws Exception {
-		TVStorageFactory factory = new TVStorageFactoryImpl("c:\\111\\");
-		TVStorageInterface storage = factory.getStorage(StorageType.CSV);
-		storage.print();
-		storage = factory.getStorage(StorageType.TXT);
-		storage.print();
+	public boolean isStorageInitialized(StorageType storageType) {
+		if (!storage.containsKey(storageType))
+			return false;
+		
+		return true;
 	}
-
-
+	
+	public String toString() {
+		StringBuilder storageString = new StringBuilder();
+		
+		for (Iterator<StorageType> itr = storage.keySet().iterator() ; itr.hasNext() ; ) {
+			StorageType storageType = itr.next();
+			storageString = storageString.append(storageType.toString());
+			if (itr.hasNext())
+				storageString = storageString.append(", ");
+		}
+		
+		return storageString.toString();
+	}
+	
+	public void editConsole() {
+		TVConsoleEditWizard wizard = new TVConsoleEditWizard(this);
+		wizard.start(wizard);
+	}
+		
 }

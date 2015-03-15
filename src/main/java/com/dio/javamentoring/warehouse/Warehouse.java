@@ -14,9 +14,15 @@ public class Warehouse {
 		manageService.printStorage(StorageType.TXT);			
 	}
 	
+	public void editStorages() {
+		manageService.editStorages();
+	}
+	
 	public static void main(String[] args) throws Exception {
 		Warehouse warehouse = new Warehouse();
 		warehouse.initTVManageService("C:\\111\\");
 		warehouse.printStorages();
+		
+		warehouse.editStorages();
 	}
 }

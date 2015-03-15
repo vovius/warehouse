@@ -5,4 +5,5 @@ public interface TVManageService {
 	public void saveStorageFactory(String factoryFolder) throws Exception;
 	public boolean initByStorageType(StorageType storageType) throws Exception;
 	public void printStorage(StorageType storageType) throws Exception;
+	public void editStorages();
 }

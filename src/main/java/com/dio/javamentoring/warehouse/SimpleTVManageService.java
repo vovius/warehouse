@@ -31,4 +31,10 @@ public class SimpleTVManageService implements TVManageService {
 
 	}
 
+	public void editStorages() {
+		factory.editConsole();
+	}
+	
+	
+
 }
