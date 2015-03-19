@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TV {
+	int id;
 	private String brand;
 	private int diagonal;
 	private MatrixType matrixType;
@@ -15,8 +16,9 @@ public class TV {
 	
 	public TV() {};
 	
-	public TV(String brand, int diagonal, MatrixType matrixType, Date dateMade) {
+	public TV(int id, String brand, int diagonal, MatrixType matrixType, Date dateMade) {
 		super();
+		this.id = id;
 		this.brand = brand;
 		this.diagonal = diagonal;
 		this.matrixType = matrixType;
@@ -81,18 +83,25 @@ public class TV {
 	
 	// static nested
 	public static class Builder {
+		private int id;
 		private String brand;
 		private int diagonal;
 		private MatrixType matrixType;
-		Date dateMade;
+		private Date dateMade;
 
         public Builder(){}
         
         public Builder(TV item) {
+        	this.id = item.id;
         	this.brand = item.brand;
         	this.diagonal = item.diagonal;
         	this.matrixType = item.matrixType;
         	this.dateMade = item.dateMade;
+        }
+        
+        public Builder id(int id) {
+        	this.id = id;
+        	return this;
         }
         
         public Builder brand(String brand) {

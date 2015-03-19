@@ -24,10 +24,11 @@ public class TxtTVStorage extends CommonTVStorage {
 				String[] fields = line.split("\\t");
 
 				TV item = new TV.Builder()
-							.brand(fields[0])
-							.diagonal(Integer.valueOf(fields[1]).intValue())
-							.matrixType(MatrixType.valueOf(fields[2]))
-							.dateMade(DATE_FORMAT.parse(fields[3]))
+							.id(Integer.valueOf(fields[0]).intValue())
+							.brand(fields[1])
+							.diagonal(Integer.valueOf(fields[2]).intValue())
+							.matrixType(MatrixType.valueOf(fields[3]))
+							.dateMade(DATE_FORMAT.parse(fields[4]))
 							.build();
 				addItem(item);
 					

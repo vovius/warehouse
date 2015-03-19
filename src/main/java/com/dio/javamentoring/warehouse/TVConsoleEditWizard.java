@@ -31,25 +31,26 @@ public class TVConsoleEditWizard {
 	public void start(Object obj) {
 		WizardAction result;
 		
-		ListIterator<Action> itr = actionList.listIterator();
-		Action action = itr.next();
+		int currentItemIndex = 0;
 
+		Class<? extends Object> cls = obj.getClass();
+		
 		do {
-			Class<? extends Object> cls = obj.getClass();
 			
 			try {
-				Class<?>[] parms = new Class<?>[0];
-
+				Action action = actionList.get(currentItemIndex);
 				Method method = cls.getDeclaredMethod(action.getMethod(), null);
 				result = (WizardAction) method.invoke(obj, null);
 				
 				switch (result) {
 				case BACK :
-					action = itr.hasPrevious() ? itr.previous() : null;
+					//action = itr.hasPrevious() ? itr.previous() : null;
+					currentItemIndex = currentItemIndex > 0 ? currentItemIndex-1 : -1; 
 					break;
 					
 				case FORWARD :
-					action = itr.hasNext() ? itr.next() : null;
+					//action = itr.hasNext() ? itr.next() : null;
+					currentItemIndex = currentItemIndex < actionList.size() ? currentItemIndex+1 : -1; 
 					break;
 				}
 				
@@ -67,11 +68,13 @@ public class TVConsoleEditWizard {
 				result = WizardAction.EXIT;
 			}
 			
-			if (action == null)
+			if (currentItemIndex == -1) {
 				result = WizardAction.EXIT;
+			}
 			
 		} while (result != WizardAction.EXIT);
 		
+		System.out.println("Terminated");
 	}
 	
 	@SuppressWarnings("unused")

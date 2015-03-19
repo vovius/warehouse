@@ -47,6 +47,7 @@ public class CsvTVStorage extends CommonTVStorage {
         
         final CellProcessor[] processors = new CellProcessor[] { 
                 //new UniqueHashCode(), // customerNo (must be unique)
+                new ParseInt(), // id
                 new NotNull(), // brand
                 new ParseInt(), // diagonal
                 new ParseEnum(MatrixType.class), // matrixtype
