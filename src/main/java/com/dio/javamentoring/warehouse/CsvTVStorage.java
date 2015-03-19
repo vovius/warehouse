@@ -13,7 +13,7 @@ import org.supercsv.prefs.CsvPreference;
 public class CsvTVStorage extends CommonTVStorage {
 	
 	public CsvTVStorage(String fileName) throws Exception {
-		super(fileName);
+		super(fileName,StorageType.CSV);
 	}
 	
 	@SuppressWarnings("finally")
@@ -31,6 +31,8 @@ public class CsvTVStorage extends CommonTVStorage {
             while( (item = beanReader.read(TV.class, header, processors)) != null) {
                 addItem(item);
             }    
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		finally {
 			if( beanReader != null ) {
@@ -42,21 +44,12 @@ public class CsvTVStorage extends CommonTVStorage {
 
 	private static CellProcessor[] getProcessors() {
         
-        //final String emailRegex = "[a-z0-9\\._]+@[a-z0-9\\.]+"; // just an example, not very robust!
-        //StrRegEx.registerMessage(emailRegex, "must be a valid email address");
-        
         final CellProcessor[] processors = new CellProcessor[] { 
-                //new UniqueHashCode(), // customerNo (must be unique)
                 new ParseInt(), // id
                 new NotNull(), // brand
                 new ParseInt(), // diagonal
                 new ParseEnum(MatrixType.class), // matrixtype
                 new ParseDate("MM/dd/yyyy"), // dateMade
-                /*new Optional(new ParseBool()), // married
-                new Optional(new ParseInt()), // numberOfKids
-                new NotNull(), // favouriteQuote
-                new StrRegEx(emailRegex), // email
-                new LMinMax(0L, LMinMax.MAX_LONG) // loyaltyPoints*/
         };
         
         return processors;

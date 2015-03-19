@@ -26,6 +26,7 @@ public class TVConsoleEditWizard {
 	private void fillActionList() {
 		actionList.add(new Action("actionToStorageSelect","actionToStorageSelect"));
 		actionList.add(new Action("actionStorageSelect","actionStorageSelect"));
+		actionList.add(new Action("actionStorageEdit","actionStorageEdit"));
 	}
 	
 	public void start(Object obj) {
@@ -44,13 +45,11 @@ public class TVConsoleEditWizard {
 				
 				switch (result) {
 				case BACK :
-					//action = itr.hasPrevious() ? itr.previous() : null;
 					currentItemIndex = currentItemIndex > 0 ? currentItemIndex-1 : -1; 
 					break;
 					
 				case FORWARD :
-					//action = itr.hasNext() ? itr.next() : null;
-					currentItemIndex = currentItemIndex < actionList.size() ? currentItemIndex+1 : -1; 
+					currentItemIndex = currentItemIndex < actionList.size()-1 ? currentItemIndex+1 : -1; 
 					break;
 				}
 				
@@ -144,6 +143,33 @@ public class TVConsoleEditWizard {
 		
 		return result;
 		
+	}
+	
+	@SuppressWarnings("unused")
+	private WizardAction actionStorageEdit() throws Exception {
+		WizardAction result = null;
+		StorageType storageType = (StorageType)paramsMap.get("storageType");
+		TVStorageInterface storage = factory.getStorage(storageType);
+
+		scanner.reset();
+
+		System.out.println("Current " + storageType.name() + " storage content:");
+		storage.print();
+		do{
+			System.out.println("Please, enter the record id to start editing: ");
+
+			String choice = scanner.next();
+			try {
+				int id = Integer.valueOf(choice); 
+				
+			} catch (Exception e) {
+				System.out.println("Incorrect id!");
+				e.printStackTrace();
+			}
+			
+		} while (result == null);
+		
+		return result;
 	}
 
 }

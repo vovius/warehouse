@@ -27,12 +27,23 @@ public class TV {
 
     public TV(Builder builder)
     {
+		this.id = builder.id;
 		this.brand = builder.brand;
 		this.diagonal = builder.diagonal;
 		this.matrixType = builder.matrixType;
 		this.dateMade = builder.dateMade;
     }
+    
+    
 	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getBrand() {
 		return brand;
 	}
@@ -74,7 +85,8 @@ public class TV {
 	public String toString() {
 		
 		StringBuilder result = new StringBuilder();
-		result.append("brand=").append(brand).append(", ")
+		result.append("id=").append(id).append(", ")
+			  .append("brand=").append(brand).append(", ")
 			  .append("diagonal=").append(diagonal).append(", ")
 			  .append("matrixType=").append(matrixType.toString()).append(", ")
 			  .append("dateMade=").append(getDateMadeStr());

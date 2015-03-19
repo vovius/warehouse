@@ -6,11 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public abstract class CommonTVStorage implements TVStorageInterface {
+	private StorageType storageType;
 	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	protected List<TV> goodsList = new ArrayList<TV>();	
 	public CommonTVStorage() {}
 	
-	public CommonTVStorage(String fileName) throws Exception {
+	public CommonTVStorage(String fileName, StorageType storageType) throws Exception {
+		this.storageType = storageType;
 		fillFromFile(fileName);
 	}
 
@@ -21,6 +23,7 @@ public abstract class CommonTVStorage implements TVStorageInterface {
 	}
 
 	public void print() {
+		System.out.println("Storage="+storageType.name());
 		TV item;
 		Iterator<TV> iterator;
 		for (iterator = goodsList.iterator() ; iterator.hasNext() ; ) {
