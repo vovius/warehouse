@@ -1,14 +1,16 @@
 package com.dio.javamentoring.warehouse;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TV {
-	int id;
+	private int id;
 	private String brand;
 	private int diagonal;
 	private MatrixType matrixType;
-	Date dateMade;
+	private Date dateMade;
 
 	interface TVChecker {
 		public boolean checker(Date fromDate, Date thruDate) throws Exception;
@@ -91,6 +93,44 @@ public class TV {
 			  .append("matrixType=").append(matrixType.toString()).append(", ")
 			  .append("dateMade=").append(getDateMadeStr());
 		return result.toString();
+	}
+	
+	public void setByKeyValue(String key, String value) {
+		String setterName = "set" + Character.toString(key.charAt(0)).toUpperCase() + key.substring(1);
+		Class<? extends Object> cls = this.getClass();
+		try {
+			for (Method method : cls.getMethods()) {
+				if (method.getName().equals(setterName)) {
+					Class paramClass = method.getParameterTypes()[0];
+					if (paramClass.equals(Integer.class)) {
+						Integer convertedValue = Integer.valueOf(value);
+						method.invoke(this, convertedValue);
+					}
+					else if (paramClass.equals(int.class)) {
+						int convertedValue = Integer.valueOf(value).intValue();
+						method.invoke(this, convertedValue);
+					}
+					else {
+						method.invoke(this, value);
+					}
+					
+					break;
+				}
+			}
+			
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	// static nested

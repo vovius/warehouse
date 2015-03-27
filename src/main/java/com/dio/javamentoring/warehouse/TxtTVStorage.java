@@ -13,9 +13,6 @@ public class TxtTVStorage extends CommonTVStorage {
 	public TVStorageInterface fillFromFile(String fileName) throws Exception {
 		File file = new File(fileName);
 		Scanner scanner = new Scanner(file);
-		/*String regex = "\\t";
-	    Pattern pattern = Pattern.compile(regex);
-		scanner.useDelimiter(pattern);*/
 		
 		try {
 			scanner.nextLine();
@@ -47,7 +44,6 @@ public class TxtTVStorage extends CommonTVStorage {
 	}
 
 	public boolean saveToFile(String fileName) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

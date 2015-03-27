@@ -31,5 +31,9 @@ public abstract class CommonTVStorage implements TVStorageInterface {
 			System.out.println(item.toString());
 		}
 	}
+	
+	public List<TV> getStorageList() {
+		return goodsList;
+	}
 
 }

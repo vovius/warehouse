@@ -2,6 +2,7 @@ package com.dio.javamentoring.warehouse;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,7 +27,8 @@ public class TVConsoleEditWizard {
 	private void fillActionList() {
 		actionList.add(new Action("actionToStorageSelect","actionToStorageSelect"));
 		actionList.add(new Action("actionStorageSelect","actionStorageSelect"));
-		actionList.add(new Action("actionStorageEdit","actionStorageEdit"));
+		actionList.add(new Action("actionStorageEdit","actionStorageEdit"));		
+		actionList.add(new Action("actionStorageEditItem","actionStorageEditItem"));
 	}
 	
 	public void start(Object obj) {
@@ -43,14 +45,16 @@ public class TVConsoleEditWizard {
 				Method method = cls.getDeclaredMethod(action.getMethod(), null);
 				result = (WizardAction) method.invoke(obj, null);
 				
-				switch (result) {
-				case BACK :
-					currentItemIndex = currentItemIndex > 0 ? currentItemIndex-1 : -1; 
-					break;
-					
-				case FORWARD :
-					currentItemIndex = currentItemIndex < actionList.size()-1 ? currentItemIndex+1 : -1; 
-					break;
+				if (result != null) {
+					switch (result) {
+					case BACK :
+						currentItemIndex = currentItemIndex > 0 ? currentItemIndex-1 : -1; 
+						break;
+						
+					case FORWARD :
+						currentItemIndex = currentItemIndex < actionList.size()-1 ? currentItemIndex+1 : -1; 
+						break;
+					}
 				}
 				
 			} catch (NoSuchMethodException e) {
@@ -71,7 +75,7 @@ public class TVConsoleEditWizard {
 				result = WizardAction.EXIT;
 			}
 			
-		} while (result != WizardAction.EXIT);
+		} while (result != null && result != WizardAction.EXIT);
 		
 		System.out.println("Terminated");
 	}
@@ -152,19 +156,46 @@ public class TVConsoleEditWizard {
 		TVStorageInterface storage = factory.getStorage(storageType);
 
 		scanner.reset();
+		if (paramsMap.containsKey("storageItem"))
+			paramsMap.remove("storageItem");
 
 		System.out.println("Current " + storageType.name() + " storage content:");
 		storage.print();
 		do{
-			System.out.println("Please, enter the record id to start editing: ");
+			System.out.println("Please, enter the record id to start editing or 'back' or 'exit' if you know what I mean: ");
 
 			String choice = scanner.next();
-			try {
-				int id = Integer.valueOf(choice); 
-				
-			} catch (Exception e) {
-				System.out.println("Incorrect id!");
-				e.printStackTrace();
+			if (choice.equals("back")) 
+				result = WizardAction.BACK;
+			else if (choice.equals("exit"))
+				result = WizardAction.EXIT;
+			else {
+				try {
+					
+					int id = Integer.valueOf(choice);
+					
+					List<TV> storageList = storage.getStorageList();
+					TV resultItem = null;
+					for (Iterator<TV> itr = storageList.iterator() ; itr.hasNext() ; ) {
+						TV item = itr.next();
+						if (item.getId() == id) {
+							resultItem = item;
+							break;
+						}
+					}
+					
+					if (resultItem == null) {
+						throw new Exception();
+					}
+					else {
+						paramsMap.put("storageItem", resultItem);
+						result = WizardAction.FORWARD;
+					}
+					
+				} catch (Exception e) {
+					System.out.println("Incorrect id!");
+					e.printStackTrace();
+				}
 			}
 			
 		} while (result == null);
@@ -172,4 +203,48 @@ public class TVConsoleEditWizard {
 		return result;
 	}
 
+	@SuppressWarnings("unused")
+	private WizardAction actionStorageEditItem() throws Exception {
+		WizardAction result = null;
+		TV item = (TV)paramsMap.get("storageItem");
+		System.out.println("Item to edit: " + item.toString());
+
+		scanner.reset();
+		
+		do{
+			System.out.println("Please, enter the pairs 'key=value' separated by comma or 'back' or 'exit' traditionally");
+		
+			String choice = scanner.next();
+			if (choice.equals("back")) 
+				result = WizardAction.BACK;
+			else if (choice.equals("exit"))
+				result = WizardAction.EXIT;
+			else {
+				
+				try {
+					List<String> values = Arrays.asList(choice.split(","));
+					for (String pair : values) {
+						String[] tokens = pair.trim().split("=");
+						if (tokens.length == 2) {
+							String key = tokens[0].trim();
+							String value = tokens[1].trim();
+							item.setByKeyValue(key, value);
+						}
+					}
+					System.out.println("Updated item: " + item.toString());
+					
+					
+				} catch (Exception e) {
+					System.out.println("Incorrect string, please try one more time");
+					e.printStackTrace();
+				}
+				
+				
+				
+			}
+		} while (result == null);
+		
+		return result;
+	}
+	
 }
