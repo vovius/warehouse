@@ -24,16 +24,30 @@ public abstract class CommonTVStorage implements TVStorageInterface {
 
 	public void print() {
 		System.out.println("Storage="+storageType.name());
-		TV item;
-		Iterator<TV> iterator;
-		for (iterator = goodsList.iterator() ; iterator.hasNext() ; ) {
-			item = iterator.next();
+		for (Iterator<TV> iterator = goodsList.iterator() ; iterator.hasNext() ; ) {
+			TV item = iterator.next();
 			System.out.println(item.toString());
 		}
 	}
 	
 	public List<TV> getStorageList() {
 		return goodsList;
+	}
+	
+	public StorageType getType() {
+		return storageType;
+	}
+	
+	public int getNewId() {
+		int maxId = 0;
+		for (Iterator<TV> iterator = goodsList.iterator() ; iterator.hasNext() ; ) {
+			TV item = iterator.next();
+			int id = item.getId(); 
+			if (id > maxId)
+				maxId = id;
+		}
+		
+		return maxId+1;
 	}
 
 }

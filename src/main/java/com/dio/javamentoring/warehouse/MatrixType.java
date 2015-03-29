@@ -1,7 +1,7 @@
 package com.dio.javamentoring.warehouse;
 
 public enum MatrixType {
-	PLASMA("PLASMA"), LCD("LCD");
+	PLASMA("PLASMA"), LCD("LCD"), UNDEFINED("");
 	
 	private final String matrixTypeStr;
 	

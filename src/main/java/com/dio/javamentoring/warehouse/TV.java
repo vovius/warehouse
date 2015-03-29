@@ -16,7 +16,10 @@ public class TV {
 		public boolean checker(Date fromDate, Date thruDate) throws Exception;
 	}
 	
-	public TV() {};
+	public TV() {
+		this.matrixType = MatrixType.UNDEFINED;
+		this.dateMade = new Date();
+	};
 	
 	public TV(int id, String brand, int diagonal, MatrixType matrixType, Date dateMade) {
 		super();
@@ -109,6 +112,11 @@ public class TV {
 					else if (paramClass.equals(int.class)) {
 						int convertedValue = Integer.valueOf(value).intValue();
 						method.invoke(this, convertedValue);
+					}
+					else if (paramClass.equals(MatrixType.class)) {
+						MatrixType convertedValue = MatrixType.valueOf(value);
+						if (convertedValue != null)
+							method.invoke(this, convertedValue);
 					}
 					else {
 						method.invoke(this, value);

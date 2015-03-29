@@ -8,4 +8,6 @@ public interface TVStorageInterface {
 	public TV addItem(TV item);
 	public void print();
 	public List<TV> getStorageList();
+	public StorageType getType();
+	public int getNewId();
 }

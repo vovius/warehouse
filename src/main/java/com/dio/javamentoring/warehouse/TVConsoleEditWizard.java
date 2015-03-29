@@ -27,8 +27,10 @@ public class TVConsoleEditWizard {
 	private void fillActionList() {
 		actionList.add(new Action("actionToStorageSelect","actionToStorageSelect"));
 		actionList.add(new Action("actionStorageSelect","actionStorageSelect"));
-		actionList.add(new Action("actionStorageEdit","actionStorageEdit"));		
-		actionList.add(new Action("actionStorageEditItem","actionStorageEditItem"));
+		actionList.add(new Action("actionActionSelect","actionActionSelect"));
+		actionList.add(new Action("actionStorageMaintain","actionStorageMaintain"));
+		//actionList.add(new Action("actionStorageEdit","actionStorageEdit"));		
+		//actionList.add(new Action("actionStorageEditItem","actionStorageEditItem"));
 	}
 	
 	public void start(Object obj) {
@@ -148,9 +150,86 @@ public class TVConsoleEditWizard {
 		return result;
 		
 	}
+
+	@SuppressWarnings("unused")
+	private WizardAction actionActionSelect() throws Exception {
+		WizardAction result = null;
+
+		StorageType storageType = (StorageType)paramsMap.get("storageType");
+		TVStorageInterface storage = factory.getStorage(storageType);
+		System.out.println("Current " + storage.getType().name() + " storage content:");
+		storage.print();
+		
+		scanner.reset();
+		if (paramsMap.containsKey("actionSelected"))
+			paramsMap.remove("actionSelected");
+
+		do{
+			System.out.println("Please, enter the action code: ");
+			System.out.println("1 - edit item by id");
+			System.out.println("2 - add new item");
+			System.out.println("3 - delete item");
+			System.out.println("or 'back' or 'exit' appropriately");
+
+			String choice = scanner.next();
+			if (choice.equals("back")) 
+				result = WizardAction.BACK;
+			else if (choice.equals("exit"))
+				result = WizardAction.EXIT;
+			else {
+				try {
+					
+					int id = Integer.valueOf(choice);
+					
+					paramsMap.put("actionSelected", Integer.valueOf(id));
+					result = WizardAction.FORWARD;
+					
+				} catch (Exception e) {
+					System.out.println("Incorrect action code!");
+					e.printStackTrace();
+				}
+			}
+			
+		} while (result == null);
+		
+		return result;
+	}
 	
 	@SuppressWarnings("unused")
-	private WizardAction actionStorageEdit() throws Exception {
+	private WizardAction actionStorageMaintain() throws Exception {
+		WizardAction result = null;
+		int actionId = (Integer)paramsMap.get("actionSelected");
+
+		scanner.reset();
+
+		do{
+			switch (actionId) {
+			case 1 :
+				result = actionStorageItemSelect();
+				if (result == WizardAction.FORWARD)
+					result = actionStorageEditItem();
+				break;
+			
+			case 2 :
+				result = actionStorageAddItem();
+				break;
+				
+			case 3 :
+				result = actionStorageItemSelect();
+				if (result == WizardAction.FORWARD)
+					result = actionStorageDeleteItem();				
+				break;
+				
+			}
+					
+		} while (result == null);
+		
+		return result;
+	}
+	
+	
+	
+	private WizardAction actionStorageItemSelect() throws Exception {
 		WizardAction result = null;
 		StorageType storageType = (StorageType)paramsMap.get("storageType");
 		TVStorageInterface storage = factory.getStorage(storageType);
@@ -162,7 +241,7 @@ public class TVConsoleEditWizard {
 		System.out.println("Current " + storageType.name() + " storage content:");
 		storage.print();
 		do{
-			System.out.println("Please, enter the record id to start editing or 'back' or 'exit' if you know what I mean: ");
+			System.out.println("Please, enter the record id or 'back' or 'exit' if you know what I mean: ");
 
 			String choice = scanner.next();
 			if (choice.equals("back")) 
@@ -202,8 +281,9 @@ public class TVConsoleEditWizard {
 		
 		return result;
 	}
+	
+	
 
-	@SuppressWarnings("unused")
 	private WizardAction actionStorageEditItem() throws Exception {
 		WizardAction result = null;
 		TV item = (TV)paramsMap.get("storageItem");
@@ -246,5 +326,95 @@ public class TVConsoleEditWizard {
 		
 		return result;
 	}
+
+	private WizardAction actionStorageAddItem() throws Exception {
+		WizardAction result = null;
+		StorageType storageType = (StorageType)paramsMap.get("storageType");
+		TVStorageInterface storage = factory.getStorage(storageType);
+
+		scanner.reset();
+		
+		do{
+			System.out.println("Please, enter the pairs 'key=value' separated by comma or 'back' or 'exit' traditionally");
+		
+			String choice = scanner.next();
+			if (choice.equals("back")) 
+				result = WizardAction.BACK;
+			else if (choice.equals("exit"))
+				result = WizardAction.EXIT;
+			else {
+				
+				try {
+					TV item = new TV();
+					List<String> values = Arrays.asList(choice.split(","));
+					for (String pair : values) {
+						String[] tokens = pair.trim().split("=");
+						if (tokens.length == 2) {
+							String key = tokens[0].trim();
+							String value = tokens[1].trim();
+							
+							if (key.equals("id"))
+								continue;
+							
+							// finding the appropriate setter							
+							item.setByKeyValue(key, value);
+						}
+					}
+					item.setId(storage.getNewId());
+					System.out.println("Item to insert: " + item.toString());
+					storage.addItem(item);
+					
+					result = WizardAction.BACK;
+					
+				} catch (Exception e) {
+					System.out.println("Incorrect string, please try one more time");
+					e.printStackTrace();
+				}
+				
+				
+				
+			}
+		} while (result == null);
+		
+		return result;
+	}
+	
+	private WizardAction actionStorageDeleteItem() throws Exception {
+		WizardAction result = null;
+		StorageType storageType = (StorageType)paramsMap.get("storageType");
+		TVStorageInterface storage = factory.getStorage(storageType);
+		TV itemToDelete = (TV)paramsMap.get("storageItem");
+		System.out.println("Item to delete: " + itemToDelete.toString());
+
+		try {
+			
+			int id = itemToDelete.getId();
+			
+			boolean found = false;
+			List<TV> storageList = storage.getStorageList();
+			for (ListIterator<TV> itr = storageList.listIterator() ; itr.hasNext() ; ) {
+				TV item = itr.next();
+				if (item.getId() == id) {
+					found = true;
+					itr.remove();
+					break;
+				}
+			}
+			
+			if (!found)
+				throw new Exception("Incorrect id!");
+			
+			result = WizardAction.BACK;
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		System.out.println("Successfully deleted");
+		
+		return result;
+	}
+	
 	
 }
