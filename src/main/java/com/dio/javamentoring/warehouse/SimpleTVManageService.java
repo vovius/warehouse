@@ -4,9 +4,10 @@ public class SimpleTVManageService implements TVManageService {
 	
 	private TVStorageFactoryImpl factory;
 
-	public void createStorageFactory(String factoryFolder) {
+	public TVStorageFactory createStorageFactory(String factoryFolder) {
 		if (factory == null)
 			factory = new TVStorageFactoryImpl(factoryFolder);
+		return factory;
 	}
 
 	public void saveStorageFactory(String factoryFolder) throws Exception {
@@ -33,6 +34,10 @@ public class SimpleTVManageService implements TVManageService {
 
 	public void editStorages() {
 		factory.editConsole();
+	}
+
+	public TVStorageInterface getStorage(StorageType storageType) throws Exception {
+		return factory.getStorage(storageType);
 	}
 	
 	

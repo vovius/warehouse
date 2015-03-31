@@ -18,6 +18,15 @@ public class Warehouse {
 		manageService.editStorages();
 	}
 	
+	public TVManageService getManageService() {
+		return manageService;
+	}
+	
+	public TVStorageInterface getStorage(StorageType storageType) throws Exception {
+		return manageService.getStorage(storageType);
+	}
+	
+	
 	public static void main(String[] args) throws Exception {
 		Warehouse warehouse = new Warehouse();
 		warehouse.initTVManageService("C:\\111\\");
