@@ -1,5 +1,7 @@
 package com.dio.javamentoring.warehouse;
 
+import java.util.List;
+
 public class Warehouse {	
 	private TVManageService manageService = new SimpleTVManageService();
 	
@@ -24,6 +26,10 @@ public class Warehouse {
 	
 	public TVStorageInterface getStorage(StorageType storageType) throws Exception {
 		return manageService.getStorage(storageType);
+	}
+	
+	public List<TVStorageInterface> getStorages() throws Exception {
+		return manageService.getStorages();
 	}
 	
 	

@@ -1,5 +1,8 @@
 package com.dio.javamentoring.warehouse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SimpleTVManageService implements TVManageService {
 	
 	private TVStorageFactoryImpl factory;
@@ -40,6 +43,14 @@ public class SimpleTVManageService implements TVManageService {
 		return factory.getStorage(storageType);
 	}
 	
-	
+	public List<TVStorageInterface> getStorages() throws Exception {
+		List<TVStorageInterface> storageList = new ArrayList<TVStorageInterface>();
+		for (StorageType storageType : StorageType.values()) {
+			if (factory.isStorageInitialized(storageType))
+				storageList.add(factory.getStorage(storageType));
+		}
+		
+		return storageList;
+	}
 
 }
