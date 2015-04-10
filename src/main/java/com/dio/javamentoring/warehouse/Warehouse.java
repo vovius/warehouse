@@ -24,11 +24,11 @@ public class Warehouse {
 		return manageService;
 	}
 	
-	public TVStorageInterface getStorage(StorageType storageType) throws Exception {
+	public TVStorage getStorage(StorageType storageType) throws Exception {
 		return manageService.getStorage(storageType);
 	}
 	
-	public List<TVStorageInterface> getStorages() throws Exception {
+	public List<TVStorage> getStorages() throws Exception {
 		return manageService.getStorages();
 	}
 	

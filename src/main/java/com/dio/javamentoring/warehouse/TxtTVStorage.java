@@ -10,7 +10,7 @@ public class TxtTVStorage extends CommonTVStorage {
 		super(fileName,StorageType.TXT);
 	}
 
-	public TVStorageInterface fillFromFile(String fileName) throws Exception {
+	public TVStorage fillFromFile(String fileName) throws Exception {
 		File file = new File(fileName);
 		Scanner scanner = new Scanner(file);
 		

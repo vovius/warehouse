@@ -39,12 +39,12 @@ public class SimpleTVManageService implements TVManageService {
 		factory.editConsole();
 	}
 
-	public TVStorageInterface getStorage(StorageType storageType) throws Exception {
+	public TVStorage getStorage(StorageType storageType) throws Exception {
 		return factory.getStorage(storageType);
 	}
 	
-	public List<TVStorageInterface> getStorages() throws Exception {
-		List<TVStorageInterface> storageList = new ArrayList<TVStorageInterface>();
+	public List<TVStorage> getStorages() throws Exception {
+		List<TVStorage> storageList = new ArrayList<TVStorage>();
 		for (StorageType storageType : StorageType.values()) {
 			if (factory.isStorageInitialized(storageType))
 				storageList.add(factory.getStorage(storageType));

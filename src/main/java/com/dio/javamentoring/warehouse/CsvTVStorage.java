@@ -17,7 +17,7 @@ public class CsvTVStorage extends CommonTVStorage {
 	}
 	
 	@SuppressWarnings("finally")
-	public TVStorageInterface fillFromFile(String fileName) throws Exception {
+	public TVStorage fillFromFile(String fileName) throws Exception {
 		CsvBeanReader beanReader = null;
 		
 		try {

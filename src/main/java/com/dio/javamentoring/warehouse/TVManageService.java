@@ -8,6 +8,6 @@ public interface TVManageService {
 	public boolean initByStorageType(StorageType storageType) throws Exception;
 	public void printStorage(StorageType storageType) throws Exception;
 	public void editStorages();
-	public TVStorageInterface getStorage(StorageType storageType) throws Exception;
-	public List<TVStorageInterface> getStorages() throws Exception;
+	public TVStorage getStorage(StorageType storageType) throws Exception;
+	public List<TVStorage> getStorages() throws Exception;
 }

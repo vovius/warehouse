@@ -156,7 +156,7 @@ public class TVConsoleEditWizard {
 		WizardAction result = null;
 
 		StorageType storageType = (StorageType)paramsMap.get("storageType");
-		TVStorageInterface storage = factory.getStorage(storageType);
+		TVStorage storage = factory.getStorage(storageType);
 		System.out.println("Current " + storage.getType().name() + " storage content:");
 		storage.print();
 		
@@ -232,7 +232,7 @@ public class TVConsoleEditWizard {
 	private WizardAction actionStorageItemSelect() throws Exception {
 		WizardAction result = null;
 		StorageType storageType = (StorageType)paramsMap.get("storageType");
-		TVStorageInterface storage = factory.getStorage(storageType);
+		TVStorage storage = factory.getStorage(storageType);
 
 		scanner.reset();
 		if (paramsMap.containsKey("storageItem"))
@@ -330,7 +330,7 @@ public class TVConsoleEditWizard {
 	private WizardAction actionStorageAddItem() throws Exception {
 		WizardAction result = null;
 		StorageType storageType = (StorageType)paramsMap.get("storageType");
-		TVStorageInterface storage = factory.getStorage(storageType);
+		TVStorage storage = factory.getStorage(storageType);
 
 		scanner.reset();
 		
@@ -382,7 +382,7 @@ public class TVConsoleEditWizard {
 	private WizardAction actionStorageDeleteItem() throws Exception {
 		WizardAction result = null;
 		StorageType storageType = (StorageType)paramsMap.get("storageType");
-		TVStorageInterface storage = factory.getStorage(storageType);
+		TVStorage storage = factory.getStorage(storageType);
 		TV itemToDelete = (TV)paramsMap.get("storageItem");
 		System.out.println("Item to delete: " + itemToDelete.toString());
 

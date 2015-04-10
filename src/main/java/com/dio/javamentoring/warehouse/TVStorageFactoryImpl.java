@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class TVStorageFactoryImpl implements TVStorageFactory {
 	
-	private Map<StorageType,TVStorageInterface> storage = new HashMap<StorageType,TVStorageInterface>();;
+	private Map<StorageType,TVStorage> storage = new HashMap<StorageType,TVStorage>();;
 	private final String storagePath;
 	
 	public TVStorageFactoryImpl(String storagePath) {
@@ -29,12 +29,12 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 		return true;
 	}
 
-	public TVStorageInterface getStorage(StorageType storageType) throws Exception {
+	public TVStorage getStorage(StorageType storageType) throws Exception {
 		if (storage.containsKey(storageType))
 			return storage.get(storageType);
 		
 		String fileName = storageType.addExt(storagePath + "tvlist");
-		TVStorageInterface tvStorage;
+		TVStorage tvStorage;
 		switch (storageType) {
 		case TXT :
 		default :
@@ -55,7 +55,7 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 		if (!storage.containsKey(storageType))
 			return false;
 		
-		TVStorageInterface tvStorage = storage.get(storageType);
+		TVStorage tvStorage = storage.get(storageType);
 		tvStorage.print();
 		
 		return true;

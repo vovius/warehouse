@@ -4,8 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
-public abstract class CommonTVStorage implements TVStorageInterface {
+public abstract class CommonTVStorage implements TVStorage {
 	private StorageType storageType;
 	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	protected List<TV> goodsList = new ArrayList<TV>();	
@@ -49,5 +50,19 @@ public abstract class CommonTVStorage implements TVStorageInterface {
 		
 		return maxId+1;
 	}
+
+	public void deleteItem(int id) {
+		
+		for (ListIterator<TV> itr = goodsList.listIterator(); itr.hasNext(); ) {
+			TV item = itr.next();
+			if (item.getId() == id) {
+				itr.remove();
+				break;
+			}
+		}
+		
+	}
+	
+	
 
 }
