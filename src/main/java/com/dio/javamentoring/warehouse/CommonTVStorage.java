@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public abstract class CommonTVStorage implements TVStorage {
+
 	private StorageType storageType;
 	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	protected List<TV> goodsList = new ArrayList<TV>();	
@@ -21,6 +22,22 @@ public abstract class CommonTVStorage implements TVStorage {
 		if (goodsList.add(item))
 			return item;
 		return null;
+	}
+	
+	public void setItem(TV item) {		
+		boolean found = false;
+		for (ListIterator<TV> iterator = goodsList.listIterator() ; iterator.hasNext() ; ) {
+			TV curItem = iterator.next();
+			if (curItem.getId() == item.getId()) {
+				found = true;
+				iterator.set(item);
+			}
+		}
+		
+		if (!found) {
+			item.setId(getNewId());
+			addItem(item);
+		}
 	}
 
 	public void print() {
@@ -63,6 +80,16 @@ public abstract class CommonTVStorage implements TVStorage {
 		
 	}
 	
+	public TV getItemById(int id) {
+		for (Iterator<TV> itr = goodsList.iterator(); itr.hasNext(); ) {
+			TV item = itr.next();
+			if (item.getId() == id) {
+				return item;
+			}
+		}
+		
+		return null;
+	}
 	
 
 }

@@ -11,4 +11,6 @@ public interface TVStorage {
 	public StorageType getType();
 	public int getNewId();
 	public void deleteItem(int id);
+	public TV getItemById(int id);
+	public void setItem(TV item);
 }
