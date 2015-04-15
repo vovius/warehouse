@@ -44,6 +44,10 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 		case CSV :
 			tvStorage = new CsvTVStorage(fileName); 
 			break;
+			
+		case XLS:
+			tvStorage = new XlsTVStorage(fileName); 
+			break;
 		}
 		
 		storage.put(storageType, tvStorage);

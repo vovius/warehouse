@@ -9,11 +9,13 @@ public class Warehouse {
 		manageService.createStorageFactory(factoryFolder);
 		manageService.initByStorageType(StorageType.CSV);
 		manageService.initByStorageType(StorageType.TXT);
+		manageService.initByStorageType(StorageType.XLS);
 	}
 	
 	public void printStorages() throws Exception {
 		manageService.printStorage(StorageType.CSV);
 		manageService.printStorage(StorageType.TXT);			
+		manageService.printStorage(StorageType.XLS);			
 	}
 	
 	public void editStorages() {

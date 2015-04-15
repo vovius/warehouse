@@ -18,68 +18,29 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
+    
     <dependency>
-      <groupId>net.sf.supercsv</groupId>
-      <artifactId>super-csv-dozer</artifactId>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.3.2</version>
     </dependency>
-  </dependencies>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.12</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.3.2</version>
-      </dependency>
       
-      <dependency>
-          <groupId>net.sf.supercsv</groupId>
-          <artifactId>super-csv-dozer</artifactId>
-          <version>2.2.1</version>
-      </dependency>     
-    </dependencies>
-  </dependencyManagement>
-  
-<!--   
-<build>
-  <plugins>
-    <plugin>
-        <groupId>com.github.goldin</groupId>
-        <artifactId>copy-maven-plugin</artifactId>
-        <version>0.2.5</version>
-        <executions>
-            <execution>
-                <id>deploy-to-local-directory</id>
-                <phase>install</phase>
-                <goals>
-                    <goal>copy</goal>
-                </goals>
-                <configuration>
-                    <skipIdentical>false</skipIdentical>
-                    <failIfNotFound>false</failIfNotFound>
-                    <resources>
-                        <resource>
-                            <description>Copy artifact to another directory</description>
-                            <targetPath>C:/Users/varseienko/workspace/WarehouseWeb/WebContent/WEB-INF/lib/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <includes>
-                                <include>*.jar</include>
-                            </includes>
-                        </resource>
-                    </resources>
-                </configuration>
-            </execution>
-        </executions>
-    </plugin>
-  </plugins>
-</build>
- -->
-   
+    <dependency>
+        <groupId>net.sf.supercsv</groupId>
+        <artifactId>super-csv-dozer</artifactId>
+        <version>2.2.1</version>
+    </dependency>     
+    
+		<dependency>
+		  <groupId>org.apache.poi</groupId>
+		  <artifactId>poi</artifactId>
+		  <version>3.12-beta1</version>
+		  
+	  </dependency>
+			
+   </dependencies>
+       
 </project>
