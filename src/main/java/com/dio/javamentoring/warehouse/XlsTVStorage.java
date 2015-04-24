@@ -8,8 +8,6 @@ import java.util.Iterator;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Row.*;
-import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 
 public class XlsTVStorage extends CommonTVStorage {
 
@@ -17,7 +15,7 @@ public class XlsTVStorage extends CommonTVStorage {
 		super(fileName,StorageType.XLS);
 	}
 	
-	public TVStorage fillFromFile(String fileName) throws Exception {
+	public TVStorage fillBySourceString(String fileName) throws Exception {
 		FileInputStream file = new FileInputStream(new File(fileName));
 		HSSFWorkbook workbook = new HSSFWorkbook(file);
 		HSSFSheet sheet = workbook.getSheetAt(0);
@@ -42,12 +40,12 @@ public class XlsTVStorage extends CommonTVStorage {
 	
 		workbook.close();
 		
-		this.fileName = fileName;
+		this.sourceString = fileName;
 		
 		return this;
 	}
 
-	public boolean saveToFile(String fileName) throws Exception {
+	public boolean saveBySourceString(String fileName) throws Exception {
 		FileInputStream file = new FileInputStream(new File(fileName));
 		HSSFWorkbook workbook = new HSSFWorkbook(file);
 		HSSFSheet sheet = workbook.getSheetAt(0);
@@ -77,7 +75,9 @@ public class XlsTVStorage extends CommonTVStorage {
 		FileOutputStream outFile =new FileOutputStream(new File(fileName));
 	    workbook.write(outFile);
 	    outFile.close();
-		
+
+		workbook.close();
+	    
 		return true;
 	}
 

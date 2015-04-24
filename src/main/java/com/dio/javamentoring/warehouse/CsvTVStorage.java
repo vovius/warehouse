@@ -20,7 +20,7 @@ public class CsvTVStorage extends CommonTVStorage {
 	}
 	
 	@SuppressWarnings("finally")
-	public TVStorage fillFromFile(String fileName) throws Exception {
+	public TVStorage fillBySourceString(String fileName) throws Exception {
 		CsvBeanReader beanReader = null;
 		
 		try {
@@ -42,7 +42,7 @@ public class CsvTVStorage extends CommonTVStorage {
 				beanReader.close();
             }
 			
-			this.fileName = fileName;
+			this.sourceString = fileName;
 			
             return this;
 		}
@@ -75,7 +75,7 @@ public class CsvTVStorage extends CommonTVStorage {
 	}
 	
 	
-	public boolean saveToFile(String fileName) throws Exception {
+	public boolean saveBySourceString(String fileName) throws Exception {
 		
 		ICsvBeanWriter beanWriter = null;
         try {
@@ -94,7 +94,6 @@ public class CsvTVStorage extends CommonTVStorage {
             }
                 
         } catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         finally {

@@ -10,12 +10,15 @@ public class Warehouse {
 		manageService.initByStorageType(StorageType.CSV);
 		manageService.initByStorageType(StorageType.TXT);
 		manageService.initByStorageType(StorageType.XLS);
+		manageService.initByStorageType(StorageType.DB);
+		manageService.initByStorageType(StorageType.DBPREP);
 	}
 	
 	public void printStorages() throws Exception {
 		manageService.printStorage(StorageType.CSV);
 		manageService.printStorage(StorageType.TXT);			
 		manageService.printStorage(StorageType.XLS);			
+		manageService.printStorage(StorageType.DBPREP);			
 	}
 	
 	public void editStorages() {

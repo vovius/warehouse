@@ -14,7 +14,7 @@ public class TxtTVStorage extends CommonTVStorage {
 		super(fileName,StorageType.TXT);
 	}
 
-	public TVStorage fillFromFile(String fileName) throws Exception {
+	public TVStorage fillBySourceString(String fileName) throws Exception {
 		File file = new File(fileName);
 		Scanner scanner = new Scanner(file);
 		
@@ -44,12 +44,12 @@ public class TxtTVStorage extends CommonTVStorage {
 			throw new Exception(e);
 		}
 		
-		this.fileName = fileName;
+		this.sourceString = fileName;
 		
 		return this;
 	}
 
-	public boolean saveToFile(String fileName) throws Exception {
+	public boolean saveBySourceString(String fileName) throws Exception {
 		FileWriter file = new FileWriter(fileName);
 		PrintWriter printWriter = new PrintWriter(file);
 		

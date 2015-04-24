@@ -1,7 +1,7 @@
 package com.dio.javamentoring.warehouse;
 
 public enum StorageType {
-	TXT, CSV, XLS;
+	TXT, CSV, XLS, DB, DBPREP;
 
 	public String getExt() {
 		return this.toString().toLowerCase();

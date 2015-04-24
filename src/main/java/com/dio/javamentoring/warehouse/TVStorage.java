@@ -3,8 +3,8 @@ package com.dio.javamentoring.warehouse;
 import java.util.List;
 
 public interface TVStorage {
-	public TVStorage fillFromFile(String fileName) throws Exception;
-	public boolean saveToFile(String fileName) throws Exception;
+	public TVStorage fillBySourceString(String sourceString) throws Exception;
+	public boolean saveBySourceString(String sourceString) throws Exception;
 	public void saveLastLoaded() throws Exception;
 	public TV addItem(TV item);
 	public void print();

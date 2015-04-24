@@ -11,6 +11,7 @@ public class TV {
 	private int diagonal;
 	private MatrixType matrixType;
 	private Date dateMade;
+	private String description;
 
 	interface TVChecker {
 		public boolean checker(Date fromDate, Date thruDate) throws Exception;
@@ -21,13 +22,14 @@ public class TV {
 		this.dateMade = new Date();
 	};
 	
-	public TV(int id, String brand, int diagonal, MatrixType matrixType, Date dateMade) {
+	public TV(int id, String brand, int diagonal, MatrixType matrixType, Date dateMade, String description) {
 		super();
 		this.id = id;
 		this.brand = brand;
 		this.diagonal = diagonal;
 		this.matrixType = matrixType;
 		this.dateMade = dateMade;
+		this.description = description;
 	}
 
     public TV(Builder builder)
@@ -37,6 +39,7 @@ public class TV {
 		this.diagonal = builder.diagonal;
 		this.matrixType = builder.matrixType;
 		this.dateMade = builder.dateMade;
+		this.description = builder.description;
     }
     
     
@@ -85,6 +88,16 @@ public class TV {
 	public void setDateMade(Date dateMade) {
 		this.dateMade = dateMade;
 	}
+	
+	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	@Override
 	public String toString() {
@@ -94,7 +107,8 @@ public class TV {
 			  .append("brand=").append(brand).append(", ")
 			  .append("diagonal=").append(diagonal).append(", ")
 			  .append("matrixType=").append(matrixType.toString()).append(", ")
-			  .append("dateMade=").append(getDateMadeStr());
+			  .append("dateMade=").append(getDateMadeStr()).append(", ")
+			  .append("description=").append(description == null ? "" : description);
 		return result.toString();
 	}
 	
@@ -148,6 +162,7 @@ public class TV {
 		private int diagonal;
 		private MatrixType matrixType;
 		private Date dateMade;
+		private String description = null;
 
         public Builder(){}
         
@@ -157,6 +172,7 @@ public class TV {
         	this.diagonal = item.diagonal;
         	this.matrixType = item.matrixType;
         	this.dateMade = item.dateMade;
+        	this.description = item.description;
         }
         
         public Builder id(int id) {
@@ -183,6 +199,13 @@ public class TV {
         	this.dateMade = dateMade;
         	return this;
         }
+        
+        public Builder description(String description) {
+        	if (description != null && !description.equals("null"))
+        		this.description = description;
+        	return this;
+        }
+        
         
         public TV build() {
         	return new TV(this);

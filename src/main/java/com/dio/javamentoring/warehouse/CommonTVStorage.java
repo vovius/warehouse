@@ -11,16 +11,16 @@ public abstract class CommonTVStorage implements TVStorage {
 	private StorageType storageType;
 	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	protected List<TV> goodsList = new ArrayList<TV>();
-	protected String fileName;
+	protected String sourceString;
 	
 	
 	public CommonTVStorage() {}
 	
-	public CommonTVStorage(String fileName, StorageType storageType) throws Exception {
+	public CommonTVStorage(String sourceString, StorageType storageType) throws Exception {
 		this.storageType = storageType;
-		fillFromFile(fileName);
+		fillBySourceString(sourceString);
 		
-		this.fileName = fileName;
+		this.sourceString = sourceString;
 	}
 
 	public TV addItem(TV item) {
@@ -97,8 +97,8 @@ public abstract class CommonTVStorage implements TVStorage {
 	}
 
 	public void saveLastLoaded() throws Exception {
-		if (fileName != null && !fileName.isEmpty()) {
-			saveToFile(fileName);
+		if (sourceString != null && !sourceString.isEmpty()) {
+			saveBySourceString(sourceString);
 		}
 		
 	}

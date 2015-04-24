@@ -1,9 +1,11 @@
 package com.dio.javamentoring.warehouse;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
+import java.util.Properties;
 
 public class TVStorageFactoryImpl implements TVStorageFactory {
 	
@@ -15,8 +17,18 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 	}
 
 	public boolean saveStorage(StorageType storageType) {
-		// TODO Auto-generated method stub
-		return false;
+		if (isStorageInitialized(storageType)) {
+			TVStorage curStorage = storage.get(storageType);
+			try {
+				curStorage.saveLastLoaded();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		return true;
 	}
 	
 	public boolean saveAllStorages() {
@@ -27,6 +39,20 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 		}
 		
 		return true;
+	}
+	
+	private Properties getProperties() throws Exception {
+		Properties properties = new Properties();
+		String propFileName = "config.properties";
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+		 
+		if (inputStream != null) {
+			properties.load(inputStream);
+		} else {
+			throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+		}	
+		
+		return properties;
 	}
 
 	public TVStorage getStorage(StorageType storageType) throws Exception {
@@ -48,9 +74,23 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 		case XLS:
 			tvStorage = new XlsTVStorage(fileName); 
 			break;
+			
+		case DB:
+		case DBPREP:
+			Properties properties = getProperties();
+			
+			String dbInitString = properties.getProperty("dbstorage");
+			if (dbInitString != null)
+				tvStorage = storageType == StorageType.DB ? new DbTVStorage(dbInitString) : new DbPrepTVStorage(dbInitString);
+			else
+				tvStorage = null;
+			
+			break;
 		}
 		
-		storage.put(storageType, tvStorage);
+		if (tvStorage != null)
+			storage.put(storageType, tvStorage);
+		
 		return tvStorage;
 		
 	}
