@@ -12,6 +12,7 @@ public class Warehouse {
 		manageService.initByStorageType(StorageType.XLS);
 		manageService.initByStorageType(StorageType.DB);
 		manageService.initByStorageType(StorageType.DBPREP);
+		manageService.initByStorageType(StorageType.HIBERNATE);
 	}
 	
 	public void printStorages() throws Exception {
@@ -19,6 +20,7 @@ public class Warehouse {
 		manageService.printStorage(StorageType.TXT);			
 		manageService.printStorage(StorageType.XLS);			
 		manageService.printStorage(StorageType.DBPREP);			
+		manageService.printStorage(StorageType.HIBERNATE);
 	}
 	
 	public void editStorages() {

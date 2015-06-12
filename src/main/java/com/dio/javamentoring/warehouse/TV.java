@@ -1,11 +1,12 @@
 package com.dio.javamentoring.warehouse;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TV {
+public class TV implements Serializable {
 	private int id;
 	private String brand;
 	private int diagonal;

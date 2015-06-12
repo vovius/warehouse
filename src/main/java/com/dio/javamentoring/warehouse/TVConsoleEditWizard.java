@@ -169,6 +169,7 @@ public class TVConsoleEditWizard {
 			System.out.println("1 - edit item by id");
 			System.out.println("2 - add new item");
 			System.out.println("3 - delete item");
+			System.out.println("4 - save the storage");
 			System.out.println("or 'back' or 'exit' appropriately");
 
 			String choice = scanner.next();
@@ -219,7 +220,7 @@ public class TVConsoleEditWizard {
 				if (result == WizardAction.FORWARD)
 					result = actionStorageDeleteItem();				
 				break;
-				
+
 			}
 					
 		} while (result == null);

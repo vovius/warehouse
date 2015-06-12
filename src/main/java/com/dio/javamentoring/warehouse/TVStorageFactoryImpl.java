@@ -11,9 +11,17 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 	
 	private Map<StorageType,TVStorage> storage = new HashMap<StorageType,TVStorage>();;
 	private final String storagePath;
+	private Properties properties = null;
 	
 	public TVStorageFactoryImpl(String storagePath) {
 		this.storagePath = storagePath; 
+		try {
+			getProperties();
+		} catch (Exception e) {
+			System.out.println("Cannot read the properties, exception:");
+			e.printStackTrace();
+		}
+		
 	}
 
 	public boolean saveStorage(StorageType storageType) {
@@ -42,15 +50,17 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 	}
 	
 	private Properties getProperties() throws Exception {
-		Properties properties = new Properties();
-		String propFileName = "config.properties";
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-		 
-		if (inputStream != null) {
-			properties.load(inputStream);
-		} else {
-			throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
-		}	
+		if (properties == null) {
+			properties = new Properties();
+			String propFileName = "config.properties";
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+			 
+			if (inputStream != null) {
+				properties.load(inputStream);
+			} else {
+				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+			}	
+		}
 		
 		return properties;
 	}
@@ -76,17 +86,20 @@ public class TVStorageFactoryImpl implements TVStorageFactory {
 			break;
 			
 		case DB:
-		case DBPREP:
-			Properties properties = getProperties();
-			
+		case DBPREP: 
 			String dbInitString = properties.getProperty("dbstorage");
 			if (dbInitString != null)
 				tvStorage = storageType == StorageType.DB ? new DbTVStorage(dbInitString) : new DbPrepTVStorage(dbInitString);
 			else
 				tvStorage = null;
-			
+			break;
+
+		case HIBERNATE:
+			String dbInitStringHib = properties.getProperty("hibernate_conf");
+			tvStorage = new HibernateTVStorage(dbInitStringHib);
 			break;
 		}
+		
 		
 		if (tvStorage != null)
 			storage.put(storageType, tvStorage);
