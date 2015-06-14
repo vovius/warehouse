@@ -5,18 +5,18 @@
   
  <hibernate-mapping package="com.dio.javamentoring.warehouse">  
   <class name="com.dio.javamentoring.warehouse.TV" table="tvlist">  
-    <id name="id">  
-     <generator class="assigned"></generator>  
+    <id name="id" type="integer">  
+     <generator class="assigned" />  
     </id>  
             
     <property name="brand" />  
-    <property name="diagonal" />
+    <property name="diagonal" type="integer" />
     <property name="matrixType">
 	    <type name="org.hibernate.type.EnumType">
 	        <param name="enumClass">com.dio.javamentoring.warehouse.MatrixType</param>
 	    </type>    
     </property>
-    <property name="dateMade" />  
+    <property name="dateMade" type="date" />  
     <property name="description" />  
             
   </class>  

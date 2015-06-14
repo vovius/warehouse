@@ -36,8 +36,12 @@ public class HibernateTVStorage extends CommonTVStorage implements Serializable 
 	}
 
 	public boolean saveBySourceString(String sourceString) throws Exception {
+		for (TV item : goodsList) {
+			session.merge(item);
+		}
+		//session.flush();
 		session.getTransaction().commit();
-		session.close();
+		session.beginTransaction();
 		return false;
 	}
 
