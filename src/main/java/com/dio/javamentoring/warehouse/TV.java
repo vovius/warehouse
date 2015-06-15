@@ -6,7 +6,17 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+
+@Entity
+@Table(name="tvlist")
 public class TV implements Serializable {
+	
+	@Id @GeneratedValue
 	private int id;
 	private String brand;
 	private int diagonal;

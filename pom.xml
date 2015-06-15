@@ -12,7 +12,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <hibernate.version>4.1.1.Final</hibernate.version>
+    <hibernate.version>4.3.10.Final</hibernate.version>
     <slf4jVersion>1.6.1</slf4jVersion>
     <sqlite.version>3.7.2</sqlite.version>
   </properties>
