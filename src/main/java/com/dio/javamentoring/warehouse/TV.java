@@ -6,22 +6,32 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
 @Table(name="tvlist")
 public class TV implements Serializable {
 	
-	@Id @GeneratedValue
+	@Id @GeneratedValue(generator="increment")
+	@GenericGenerator(name="increment", strategy="increment")
 	private int id;
+	
+	@Column
 	private String brand;
+	@Column
 	private int diagonal;
+	@Column
 	private MatrixType matrixType;
+	@Column
 	private Date dateMade;
+	@Column
 	private String description;
 
 	interface TVChecker {

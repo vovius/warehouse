@@ -18,8 +18,7 @@
 	        <param name="type">12</param>
 	    </type>    
     </property>
-    <property name="dateMade" type="date">
-      <column name="dateMade" sql-type="varchar"></column>
+    <property name="dateMade" type="DateFromStringType">
     </property>
     <property name="description" />  
             

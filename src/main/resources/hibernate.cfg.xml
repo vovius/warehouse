@@ -11,9 +11,11 @@
         <property name="connection.url">jdbc:sqlite:C:\\111\\tvstoragehib.db</property>
         <property name="connection.username"></property>
         <property name="connection.password"></property>
-         
+        <property name="current_session_context_class">thread</property> 
         <property name="hibernate.hbm2ddl.auto">update</property>
          
-        <mapping resource="tvstorage.hbm.xml" />
+        <mapping resource="customtypes.hbm.xml" />
+        <mapping resource="tvstorage.hbm.xml" /> 
+         
     </session-factory>
 </hibernate-configuration>
