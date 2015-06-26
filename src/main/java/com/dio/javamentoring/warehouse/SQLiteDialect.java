@@ -231,11 +231,9 @@ public class SQLiteDialect extends Dialect {
     return false;
   }
 
-  /*
   public String getAddColumnString() {
     return "add column";
   }
-  */
 
   @Override
   public String getForUpdateString() {
