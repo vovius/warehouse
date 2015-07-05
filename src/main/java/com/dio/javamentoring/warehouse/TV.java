@@ -14,9 +14,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name="tvlist")
+@XmlRootElement
 public class TV implements Serializable {
 	
 	@Id @GeneratedValue(generator="increment")
