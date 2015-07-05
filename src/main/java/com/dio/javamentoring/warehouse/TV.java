@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +38,9 @@ public class TV implements Serializable {
 	private Date dateMade;
 	@Column
 	private String description;
+
+	private List<Bonus> bonusList = new ArrayList<Bonus>();
+	
 
 	interface TVChecker {
 		public boolean checker(Date fromDate, Date thruDate) throws Exception;
@@ -179,6 +184,14 @@ public class TV implements Serializable {
 		}
 	}
 	
+	public List<Bonus> getBonusList() {
+		return bonusList;
+	}
+
+	public void setBonusList(List<Bonus> bonusList) {
+		this.bonusList = bonusList;
+	}
+
 	// static nested
 	public static class Builder {
 		private int id;

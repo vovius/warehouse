@@ -12,7 +12,6 @@ public abstract class CommonTVStorage implements TVStorage {
 	static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 	protected List<TV> goodsList = new ArrayList<TV>();
 	protected String sourceString;
-	protected List<String> bonusList = new ArrayList<String>();
 	
 	
 	public CommonTVStorage() {}
@@ -109,8 +108,4 @@ public abstract class CommonTVStorage implements TVStorage {
 	}
 
 
-	public List<String> getBonusList() {
-		return bonusList;
-	}
-	
 }

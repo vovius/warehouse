@@ -21,7 +21,20 @@
     <property name="dateMade" type="DateFromStringType">
     </property>
     <property name="description" />  
+    <list name="bonusList" table="bonuses" cascade="all" lazy="false">
+      <key column="id_tvlist" />
+      <index column="id" />
+      <one-to-many class="com.dio.javamentoring.warehouse.Bonus" />
+    </list>
             
+  </class>  
+  
+  <class name="com.dio.javamentoring.warehouse.Bonus" table="bonuses">
+    <id name="id" type="integer">  
+     <generator class="assigned" />  
+    </id>  
+    
+    <property name="name" column="bonus_name" />
   </class>  
             
 </hibernate-mapping>  
