@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Properties;
 
 import org.hibernate.Hibernate;
@@ -45,8 +46,11 @@ public class HibernateTVStorage extends CommonTVStorage implements Serializable 
 	public boolean saveBySourceString(String sourceString) throws Exception {
 		Transaction trans = null;
 		Session session = null;
-		for (TV item : goodsList) {
+		//for (TV item : goodsList) {
+		for (ListIterator<TV> itr = goodsList.listIterator() ; itr.hasNext() ; ) {
 			try {
+				TV item = itr.next();
+				
 				session = sessionFactory.openSession();
 				trans = session.beginTransaction();
 				TV itemSave = (TV)session.merge(item);
@@ -56,6 +60,9 @@ public class HibernateTVStorage extends CommonTVStorage implements Serializable 
 				session.clear();
 				session.disconnect();
 				//session.close();
+				
+				itr.set(itemSave);
+				
 			} catch (Exception e) {
 				trans.rollback();
 				if (session != null)
@@ -63,6 +70,9 @@ public class HibernateTVStorage extends CommonTVStorage implements Serializable 
 				e.printStackTrace();
 			}
 		}
+
+		// reloading the storages
+		//fillBySourceString(sourceString);
 		
 		
 		return false;

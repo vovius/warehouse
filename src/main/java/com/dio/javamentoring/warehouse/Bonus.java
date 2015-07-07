@@ -6,6 +6,12 @@ public class Bonus {
 
 	public Bonus() {};
 	
+	public Bonus(String name) {
+		this.name = name;
+	}
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -14,10 +20,6 @@ public class Bonus {
 		this.id = id;
 	}
 
-	public Bonus(String name) {
-		this.name = name;
-	}
-	
 	public String getName() {
 		return name;
 	}
@@ -59,6 +61,5 @@ public class Bonus {
 		return "Bonus [id=" + id + ", name=" + name + "]";
 	}
 
-	
-	
+
 }

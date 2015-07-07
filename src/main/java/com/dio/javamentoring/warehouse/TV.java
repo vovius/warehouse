@@ -6,7 +6,9 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,7 +41,7 @@ public class TV implements Serializable {
 	@Column
 	private String description;
 
-	private List<Bonus> bonusList = new ArrayList<Bonus>();
+	private Set<Bonus> bonuses;
 	
 
 	interface TVChecker {
@@ -184,13 +186,25 @@ public class TV implements Serializable {
 		}
 	}
 	
-	public List<Bonus> getBonusList() {
-		return bonusList;
+	public Set<Bonus> getBonuses() {
+		return bonuses;
+	}
+	
+	
+	
+	public void setBonuses(Set<Bonus> bonuses) {
+		this.bonuses = bonuses;
 	}
 
-	public void setBonusList(List<Bonus> bonusList) {
-		this.bonusList = bonusList;
+	public Bonus getBonusByName(String name) {
+		for (Bonus bonus : bonuses) {
+			if (bonus.getName().equals(name))
+				return bonus;
+		}
+		
+		return null;
 	}
+
 
 	// static nested
 	public static class Builder {
